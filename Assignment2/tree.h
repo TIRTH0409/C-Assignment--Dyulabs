@@ -1,21 +1,19 @@
 #ifndef TREE_H
 #define TREE_H
 
-#include <stdio.h>
-#include <stdlib.h>
-
 #define MAX_PROJ_NAME 32
 
-typedef struct myNode {
+typedef struct myNode
+{
     int id;
     char project[MAX_PROJ_NAME];
     struct myNode *left;
     struct myNode *right;
-} Node;
+} myNode;
 
-Node* createNode();
-void insertNode(Node** root, Node* newNode);
-int treeHeight(Node* root);
-void freeTree(Node* root);
+myNode *createNode();
+myNode *insertNode(myNode *root);
+void treeHeight(myNode *root);
+void freeTree(myNode *root);
 
-#endif
+#endif // TREE_H
