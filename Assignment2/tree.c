@@ -1,45 +1,84 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "tree.h"
 
-Node* createNode() {
-    Node* newNode = (Node*)malloc(sizeof(Node));
-    if (newNode == NULL) {
-        fprintf(stderr, "Memory allocation failed!\n");
-        exit(1);
+struct myNode *createNode()
+{
+    struct myNode *newNode = (struct myNode *)malloc(sizeof(struct myNode));
+
+    if (!newNode)
+    {
+        printf("Memory error\n");
+        return NULL;
     }
 
-    printf("Enter ID: ");
+    printf("Enter id: ");
     scanf("%d", &newNode->id);
+
     printf("Enter project name: ");
     scanf("%s", newNode->project);
+
     newNode->left = newNode->right = NULL;
+
     return newNode;
 }
 
-void insertNode(Node** root, Node* newNode) {
-    if (*root == NULL) {
-        *root = newNode;
+struct myNode *insertNode(struct myNode *root)
+{
+    int choice;
+
+    if (root == NULL)
+    {
+        return createNode();
+    }
+
+    printf("1. Insert Left\n2. Insert Right\n");
+    printf("Enter your choice: ");
+    scanf("%d", &choice);
+
+    if (choice == 1)
+    {
+        root->left = insertNode(root->left);
+    }
+    else if (choice == 2)
+    {
+        root->right = insertNode(root->right);
+    }
+    else
+    {
+        printf("Invalid choice. Please try again.\n");
+    }
+
+    return root;
+}
+
+void treeHeight(struct myNode *root)
+{
+    int leftHeight, rightHeight;
+
+    if (root == NULL)
+    {
+        printf("Height of tree is 0\n");
         return;
     }
 
-    if (newNode->id < (*root)->id) {
-        insertNode(&(*root)->left, newNode);
-    } else {
-        insertNode(&(*root)->right, newNode);
+    leftHeight = treeHeight(root->left);
+    rightHeight = treeHeight(root->right);
+
+    if (leftHeight > rightHeight)
+    {
+        printf("Height of tree is %d\n", leftHeight + 1);
+    }
+    else
+    {
+        printf("Height of tree is %d\n", rightHeight + 1);
     }
 }
 
-int treeHeight(Node* root) {
-    if (root == NULL) {
-        return 0;
-    }
-
-    int leftHeight = treeHeight(root->left);
-    int rightHeight = treeHeight(root->right);
-    return (leftHeight > rightHeight) ? leftHeight + 1 : rightHeight + 1;
-}
-
-void freeTree(Node* root) {
-    if (root == NULL) {
+void freeTree(struct myNode *root)
+{
+    if (root == NULL)
+    {
         return;
     }
 
