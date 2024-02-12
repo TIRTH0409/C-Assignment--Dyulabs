@@ -1,36 +1,37 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "tree.h"
 
-int main() {
-    Node* root = NULL;
-
+int main()
+{
+    struct myNode *root = NULL;
     int choice;
-    do {
-        printf("\n1. Insert node\n");
-        printf("2. Calculate height\n");
-        printf("3. Free tree\n");
-        printf("4. Exit\n");
+
+    while (1)
+    {
+        printf("\n1. Insert Node\n2. Calculate Tree Height\n3. Free Tree\n4. Exit\n");
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        switch (choice) {
-            case 1:
-                insertNode(&root, createNode());
-                break;
-            case 2:
-                printf("Tree height: %d\n", treeHeight(root));
-                break;
-            case 3:
-                freeTree(root);
-                root = NULL;
-                printf("Tree freed\n");
-                break;
-            case 4:
-                printf("Exiting...\n");
-                break;
-            default:
-                printf("Invalid choice\n");
+        switch (choice)
+        {
+        case 1:
+            root = insertNode(root);
+            break;
+        case 2:
+            treeHeight(root);
+            break;
+        case 3:
+            freeTree(root);
+            root = NULL;
+            break;
+        case 4:
+            exit(0);
+        default:
+            printf("Invalid choice. Please try again.\n");
+            break;
         }
-    } while (choice != 4);
+    }
 
     return 0;
 }
