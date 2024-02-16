@@ -4,7 +4,7 @@
 
 1. Copy the code and paste
    
-2. Online Compiler
+2. Online Compiler open in your browser and paste the code, run code
     - https://www.programiz.com/c-programming/online-compiler/
 
 3. View Output
